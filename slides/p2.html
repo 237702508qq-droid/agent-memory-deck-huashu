@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P2 · 两个典型问题</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .deco-dot { position:absolute; border-radius:50%; }
+  .wrap { position:relative; height:100%; display:flex; flex-direction:column; padding:72px 110px 58px; }
+  .head { flex:none; }
+  .head .page-title { font-size:50px; }
+  .headsub { text-align:center; margin-top:12px; font-size:20px; color:#55677D; letter-spacing:.02em; }
+  .headsub b { color:#C25E0A; font-weight:700; }
+
+  .problems { display:flex; gap:56px; margin-top:38px; flex:1; min-height:0; }
+  .pcol { flex:1; display:flex; flex-direction:column; min-width:0; }
+
+  .qhead { display:flex; align-items:center; gap:22px; flex:none; }
+  .qtag { flex:none; width:112px; text-align:center; background:#1F3A5C; color:#FFFFFF; font-weight:700; font-size:22px; letter-spacing:.14em; border-radius:14px; padding:12px 0 13px; }
+  .qtitle { font-size:27px; font-weight:700; color:#1F3A5C; line-height:1.45; }
+  .qtitle .hl { color:#C25E0A; }
+  .qnote { margin-top:8px; font-size:16.5px; color:#8A7F6E; letter-spacing:.02em; flex:none; }
+  .qcase { margin-top:22px; flex:1; display:flex; flex-direction:column; min-height:0; padding:30px 34px 26px; border-radius:22px; }
+  .case-cap { font-size:15px; letter-spacing:.16em; color:#6E6557; font-weight:700; flex:none; }
+  .say { margin-top:16px; position:relative; background:#F6F2EA; border:1px solid #E4DDCE; border-radius:14px; padding:16px 20px 16px 52px; font-size:18.5px; line-height:1.7; color:#44576E; flex:none; }
+  .say .qmark { position:absolute; left:16px; top:11px; font-family:'Noto Serif CJK SC', serif; font-weight:900; font-size:30px; color:#C25E0A; line-height:1; }
+  .say b { color:#1F3A5C; }
+
+  .defects { margin-top:20px; display:grid; grid-template-columns:1fr 1fr; gap:12px; flex:none; }
+  .defect { display:flex; align-items:center; gap:11px; background:#FFFFFF; border:1px solid #E4DDCE; border-radius:12px; padding:11px 14px; }
+  .defect .dot { flex:none; width:8px; height:8px; border-radius:50%; background:#C25E0A; }
+  .defect p { font-size:16.5px; line-height:1.4; color:#44576E; }
+
+  .plus { margin-top:auto; padding-top:18px; flex:none; }
+  .plus-inner { background:#1F3A5C; border-radius:16px; padding:18px 24px; display:flex; gap:16px; align-items:flex-start; }
+  .plus-mark { flex:none; width:34px; height:34px; border-radius:50%; border:2px solid rgba(255,255,255,.4); color:#F4C48E; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:19px; margin-top:2px; }
+  .plus-inner p { font-size:17.5px; line-height:1.72; color:#E8EDF4; }
+  .plus-inner b { color:#F4C48E; font-weight:700; }
+
+  .echo { margin-top:auto; padding-top:18px; flex:none; }
+  .echo-box { border:1.5px dashed #C8BBA4; border-radius:16px; padding:18px 24px; background:rgba(244,231,216,.35); }
+  .echo-cap { display:flex; align-items:center; gap:12px; font-size:15px; letter-spacing:.14em; color:#B4560A; font-weight:700; }
+  .echo-cap svg { flex:none; }
+  .echo-box p { margin-top:10px; font-size:17.5px; line-height:1.7; color:#44576E; }
+  .echo-box b { color:#1F3A5C; }
+
+  /* 母题 · 散落点 → 箭头 → 结构化条目（P2：对话框记忆 vs 桌面记忆的割裂） */
+  .motif-strip { flex:none; margin-top:34px; display:flex; align-items:center; justify-content:center; gap:26px; }
+  .mside { display:flex; align-items:center; gap:16px; flex:none; }
+  .mbox { width:236px; height:76px; border-radius:16px; position:relative; overflow:hidden; flex:none; }
+  .mbox.q1 { background:#FFFFFF; border:1.5px solid #E4DDCE; box-shadow:0 10px 26px rgba(31,58,92,.06); }
+  .mbox.q2 { background:#1F3A5C; box-shadow:0 12px 30px rgba(31,58,92,.22); }
+  .mbox .mlabel { position:absolute; left:0; right:0; bottom:0; text-align:center; font-size:12.5px; letter-spacing:.08em; color:#6E6557; padding-bottom:7px; }
+  .mbox.q2 .mlabel { color:#B9C6D8; }
+  .mbars2 { position:absolute; top:14px; left:22px; display:flex; flex-direction:column; gap:7px; }
+  .mbars2 span { height:9px; border-radius:4.5px; display:block; }
+  .midcol { display:flex; align-items:center; gap:10px; flex:none; }
+  .screws { position:relative; width:120px; height:56px; flex:none; }
+  .screws i { position:absolute; border-radius:50%; }
+  .splitline { width:2px; height:64px; background:linear-gradient(180deg, rgba(31,58,92,0) 0%, #C8BBA4 50%, rgba(31,58,92,0) 100%); flex:none; }
+  .motif-cap { flex:none; text-align:center; font-size:15px; color:#6E6557; letter-spacing:.05em; margin-top:10px; }
+  .motif-cap b { color:#B4560A; font-weight:700; }
+</style>
+</head>
+<body>
+<section id="p2" class="wrap">
+  <i class="deco-dot" style="width:150px;height:150px;background:#EDE6D6;top:-58px;right:-46px;"></i>
+  <i class="deco-dot" style="width:70px;height:70px;background:#E9EEF5;top:150px;left:-30px;"></i>
+
+  <div class="head">
+    <div class="overline">问题现象</div>
+    <h2 class="page-title">两个典型问题</h2>
+    <p class="headsub">提示词写得再详细，Agent 也未必懂你 —— <b>它缺少「桌面里」的记忆</b></p>
+  </div>
+
+  <div class="problems">
+    <!-- ───────── 问题 1 ───────── -->
+    <div class="pcol">
+      <div class="qhead">
+        <div class="qtag">问题 1</div>
+        <p class="qtitle">用户提供很多提示词，<br>但 Agent 的<span class="hl">输出效果仍然较差</span></p>
+      </div>
+      <div class="qcase card">
+        <div class="case-cap">案例提示词（描述得很详细）</div>
+        <div class="say"><span class="qmark">「</span>我是云桌面的产品经理，写一个 VDI 相关的需求文档，主要针对 xx 客户提出的 xxx 移动端的问题」</div>
+        <div class="defects">
+          <div class="defect"><i class="dot"></i><p>内容比较空</p></div>
+          <div class="defect"><i class="dot"></i><p>专业名词的理解存在偏差</p></div>
+          <div class="defect"><i class="dot"></i><p>文档的格式不是我想要的</p></div>
+          <div class="defect"><i class="dot"></i><p>内容超出我的工作边界</p></div>
+        </div>
+        <div class="plus">
+          <div class="plus-inner">
+            <div class="plus-mark">!</div>
+            <p>公司通常构建<b>企业上下文</b>让 Agent 理解企业业务；但 Agent 不理解<b>个人</b>的偏好、工作边界、常用词，依然无法高质量输出。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───────── 问题 2 ───────── -->
+    <div class="pcol">
+      <div class="qhead">
+        <div class="qtag">问题 2</div>
+        <p class="qtitle">很难通过<span class="hl">模糊指令</span>达成目标 ——<br>办公桌面上发生的事情 Agent 并不知道</p>
+      </div>
+      <p class="qnote">（Agent 只知道对话框里的事情）</p>
+      <div class="qcase card">
+        <div class="case-cap">案例提示词</div>
+        <div class="say"><span class="qmark">「</span>昨天张三发了我一个 PPT，名字好像是"什么什么 云桌面 xx 方案"，请使用这个数据帮我生成一份需求文档，就按照我昨天输出的那个需求文档格式来就行」</div>
+        <div class="echo">
+          <div class="echo-box">
+            <div class="echo-cap">
+              <svg width="30" height="16" viewBox="0 0 30 16" fill="none"><path d="M0 8 H22 M16 2 L24 8 L16 14" stroke="#B4560A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              AGENT 只能反问
+            </div>
+            <p>昨天的需求文档是什么格式？昨天张三是在<b>哪里</b>发的这个 PPT？<br>—— Agent 和人的记忆不一致，面对模糊指令就不知怎么办。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 母题：对话框记忆 ≠ 桌面记忆（割裂） -->
+  <div class="motif-strip">
+    <div class="mside">
+      <div class="mbox q1">
+        <div class="mbars2">
+          <span style="width:120px; background:#E9EEF5; border:1px solid #D8E1EC;"></span>
+          <span style="width:88px;  background:#E9EEF5; border:1px solid #D8E1EC;"></span>
+          <span style="width:132px; background:#E9EEF5; border:1px solid #D8E1EC;"></span>
+        </div>
+        <div class="mlabel">Agent 记得的 · 只是对话框</div>
+      </div>
+      <div class="splitline"></div>
+      <div class="mbox q2">
+        <div class="mbars2">
+          <span style="width:120px; background:rgba(255,255,255,.16);"></span>
+          <span style="width:88px;  background:rgba(244,196,142,.75);"></span>
+          <span style="width:132px; background:rgba(255,255,255,.16);"></span>
+        </div>
+        <div class="mlabel">桌面里发生的 · 全部空白</div>
+      </div>
+    </div>
+    <div class="midcol">
+      <div class="screws">
+        <i style="left:2px;  top:26px; width:9px; height:9px; background:#C25E0A; opacity:.7;"></i>
+        <i style="left:20px; top:12px; width:7px; height:7px; background:#1F3A5C; opacity:.4;"></i>
+        <i style="left:38px; top:32px; width:10px; height:10px; background:#E4DED0;"></i>
+        <i style="left:58px; top:16px; width:7px; height:7px; background:#1F3A5C; opacity:.3;"></i>
+        <i style="left:78px; top:28px; width:8px; height:8px; background:#C25E0A; opacity:.5;"></i>
+        <i style="left:100px;top:14px; width:7px; height:7px; background:#1F3A5C; opacity:.35;"></i>
+      </div>
+      <svg width="34" height="18" viewBox="0 0 34 18" fill="none"><path d="M0 9 H26 M20 3 L28 9 L20 15" stroke="#C25E0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="screws" style="transform:scaleX(-1);">
+        <i style="left:2px;  top:26px; width:9px; height:9px; background:#C25E0A; opacity:.7;"></i>
+        <i style="left:20px; top:12px; width:7px; height:7px; background:#1F3A5C; opacity:.4;"></i>
+        <i style="left:38px; top:32px; width:10px; height:10px; background:#E4DED0;"></i>
+        <i style="left:58px; top:16px; width:7px; height:7px; background:#1F3A5C; opacity:.3;"></i>
+        <i style="left:78px; top:28px; width:8px; height:8px; background:#C25E0A; opacity:.5;"></i>
+        <i style="left:100px;top:14px; width:7px; height:7px; background:#1F3A5C; opacity:.35;"></i>
+      </div>
+    </div>
+    <div class="mside">
+      <svg width="34" height="18" viewBox="0 0 34 18" fill="none"><path d="M0 9 H26 M20 3 L28 9 L20 15" stroke="#C25E0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div style="width:236px; display:flex; flex-direction:column; gap:9px; flex:none;">
+        <span style="height:18px; border-radius:8px; background:#E9EEF5; border:1px solid #D8E1EC; width:100%; display:flex; align-items:center; padding:0 10px;"><i style="width:6px;height:6px;border-radius:50%;background:#C25E0A;flex:none;"></i></span>
+        <span style="height:18px; border-radius:8px; background:#E9EEF5; border:1px solid #D8E1EC; width:82%;  display:flex; align-items:center; padding:0 10px;"><i style="width:6px;height:6px;border-radius:50%;background:#C25E0A;flex:none;"></i></span>
+        <span style="height:18px; border-radius:8px; background:#F4E7D8; border:1px solid #E8D5BC; width:110px; display:block;"></span>
+      </div>
+    </div>
+  </div>
+  <p class="motif-cap">桌面上发生的每一件事，都是 Agent <b>应该记得</b>却<b>记不了</b>的记忆</p>
+</section>
+</body>
+</html>
