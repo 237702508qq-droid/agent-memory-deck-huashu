@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P3 · 问题原因分析</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .deco-dot { position:absolute; border-radius:50%; }
+  .wrap { position:relative; height:100%; display:flex; flex-direction:column; padding:76px 130px 56px; }
+
+  .causes { display:flex; gap:44px; margin-top:44px; flex:none; }
+  .cause { flex:1; padding:32px 36px 30px; border-radius:22px; }
+  .cause-top { display:flex; align-items:center; gap:16px; }
+  .ckey { flex:none; font-size:15px; font-weight:700; letter-spacing:.14em; color:#B4560A; background:#F4E7D8; border-radius:999px; padding:8px 18px; }
+  .cause h3 { font-size:23px; font-weight:700; color:#1F3A5C; }
+  .cause p { margin-top:16px; font-size:19px; line-height:1.85; color:#44576E; }
+  .cause p b { color:#C25E0A; font-weight:700; }
+
+  .bottom { margin-top:34px; flex:1; min-height:0; display:flex; gap:48px; }
+
+  /* 抽卡比喻 · 浅色版 */
+  .gacha { flex:1.06; padding:30px 40px 26px; border-radius:22px; display:flex; flex-direction:column; }
+  .gacha-cap { font-size:15px; letter-spacing:.16em; color:#6E6557; font-weight:700; flex:none; }
+  .gacha-stage { flex:1; display:flex; align-items:center; justify-content:center; gap:34px; min-height:0; }
+  .gcard-stack { position:relative; width:120px; height:150px; flex:none; }
+  .gcard { position:absolute; inset:0; border-radius:14px; background:#FFFFFF; border:1.5px solid #E4DDCE; box-shadow:0 10px 26px rgba(31,58,92,.10); }
+  .gcard.q { background:#1F3A5C; display:flex; align-items:center; justify-content:center; }
+  .gcard.q span { font-size:34px; font-weight:700; color:#F4C48E; font-family:'Noto Serif CJK SC', serif; }
+  .gacha-note { width:330px; flex:none; }
+  .gacha-note .row { display:flex; align-items:flex-start; gap:12px; margin-top:14px; }
+  .gacha-note .row i { flex:none; width:8px; height:8px; border-radius:50%; background:#C25E0A; margin-top:9px; }
+  .gacha-note .row p { font-size:17.5px; line-height:1.65; color:#44576E; }
+  .gacha-note .row p b { color:#1F3A5C; }
+
+  /* 企业上下文 ≠ 个人上下文 对照 */
+  .vs { flex:1; padding:30px 40px 26px; border-radius:22px; display:flex; flex-direction:column; }
+  .vs-cap { font-size:15px; letter-spacing:.16em; color:#6E6557; font-weight:700; flex:none; }
+  .vs-body { flex:1; display:flex; align-items:center; gap:22px; min-height:0; }
+  .vs-col { flex:1; border-radius:16px; padding:20px 24px; }
+  .vs-col.full { background:#1F3A5C; }
+  .vs-col.blank { background:#FFFFFF; border:2px dashed #C8BBA4; }
+  .vs-col .t { font-size:19px; font-weight:700; }
+  .vs-col.full .t { color:#FFFFFF; }
+  .vs-col.blank .t { color:#6E6557; }
+  .vs-col .d { margin-top:8px; font-size:15.5px; line-height:1.6; }
+  .vs-col.full .d { color:#B9C6D8; }
+  .vs-col.blank .d { color:#8A7F6E; }
+  .vs-col.blank .blank-mark { margin-top:10px; font-family:'Noto Serif CJK SC', serif; font-weight:900; font-size:26px; color:#C25E0A; }
+  .vsneq { flex:none; font-family:'Noto Serif CJK SC', serif; font-weight:900; font-size:40px; color:#C25E0A; }
+  .vs-foot { margin-top:14px; font-size:15px; color:#8A7F6E; letter-spacing:.04em; flex:none; text-align:center; }
+
+  /* 母题 · 散落点 → 箭头 → 结构化条目（P3：了解用户 → 结构化画像） */
+  .motif-strip { flex:none; margin-top:30px; display:flex; align-items:center; justify-content:center; gap:22px; }
+  .mgroup { display:flex; align-items:center; gap:14px; flex:none; }
+  .mlabel { font-size:14.5px; color:#55677D; flex:none; letter-spacing:.04em; }
+  .unknown { width:180px; height:44px; border:2px dashed #C8BBA4; border-radius:12px; display:flex; align-items:center; justify-content:center; gap:12px; flex:none; }
+  .unknown i { border-radius:50%; }
+  .profile { width:220px; display:flex; flex-direction:column; gap:8px; flex:none; }
+  .profile span { height:16px; border-radius:7px; background:#E9EEF5; border:1px solid #D8E1EC; display:flex; align-items:center; padding:0 9px; }
+  .profile span.acc { background:#F4E7D8; border-color:#E8D5BC; }
+  .profile span i { width:6px; height:6px; border-radius:50%; background:#C25E0A; flex:none; }
+</style>
+</head>
+<body>
+<section id="p3" class="wrap">
+  <i class="deco-dot" style="width:140px;height:140px;background:#EDE6D6;top:-52px;right:-40px;"></i>
+  <i class="deco-dot" style="width:64px;height:64px;background:#E9EEF5;bottom:120px;left:-26px;"></i>
+
+  <div class="overline">问题原因分析</div>
+  <h2 class="page-title">为什么会出现这两个问题</h2>
+
+  <div class="causes">
+    <div class="cause card">
+      <div class="cause-top"><span class="ckey">关于问题 1</span><h3>Agent 不了解当前这个用户</h3></div>
+      <p>不了解<b>你是谁</b>、工作边界是什么、偏好是什么，它就只能通过<b>「抽卡」</b>来猜你要什么。</p>
+    </div>
+    <div class="cause card">
+      <div class="cause-top"><span class="ckey">关于问题 2</span><h3>Agent 只能记住对话框里的内容</h3></div>
+      <p>你在对话框中和它说过的内容它记得，但你在<b>桌面里面做的事情</b>它都不了解。</p>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <!-- 抽卡比喻（浅色版） -->
+    <div class="gacha card">
+      <div class="gacha-cap">「抽卡」是什么体验</div>
+      <div class="gacha-stage">
+        <div class="gcard-stack">
+          <div class="gcard" style="transform:rotate(-8deg) translate(-14px,6px);"></div>
+          <div class="gcard" style="transform:rotate(6deg) translate(12px,2px);"></div>
+          <div class="gcard q"><span>?</span></div>
+        </div>
+        <svg width="46" height="22" viewBox="0 0 46 22" fill="none"><path d="M0 11 H38 M30 3 L42 11 L30 19" stroke="#C25E0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="gacha-note">
+          <div class="row"><i></i><p>同一份提示词，每次输出<b>碰运气</b>——效果时好时坏</p></div>
+          <div class="row"><i></i><p>猜对了是运气，猜错了<b>返工重来</b></p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 企业上下文 ≠ 个人上下文 -->
+    <div class="vs card">
+      <div class="vs-cap">关键对照 · 企业上下文 ≠ 个人上下文</div>
+      <div class="vs-body">
+        <div class="vs-col full">
+          <div class="t">企业上下文</div>
+          <div class="d">企业的业务、制度与知识——企业级知识已有成熟方案</div>
+        </div>
+        <div class="vsneq">≠</div>
+        <div class="vs-col blank">
+          <div class="t">个人上下文</div>
+          <div class="d">你是谁、你的偏好、你的工作边界</div>
+          <div class="blank-mark">空白</div>
+        </div>
+      </div>
+      <div class="vs-foot">企业级知识已有方案，个人上下文是空白</div>
+    </div>
+  </div>
+
+  <!-- 母题：不了解用户（散点+虚线空框）→ 了解用户（结构化条目） -->
+  <div class="motif-strip">
+    <div class="mgroup">
+      <div class="unknown">
+        <i style="width:10px;height:10px;background:#E4DED0;"></i>
+        <i style="width:8px;height:8px;background:#1F3A5C;opacity:.35;"></i>
+        <i style="width:11px;height:11px;background:#E4DED0;"></i>
+        <i style="width:8px;height:8px;background:#C25E0A;opacity:.4;"></i>
+      </div>
+      <span class="mlabel">不了解你要什么</span>
+    </div>
+    <svg width="40" height="20" viewBox="0 0 40 20" fill="none"><path d="M0 10 H32 M25 3 L34 10 L25 17" stroke="#C25E0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="mgroup">
+      <div class="profile">
+        <span><i></i></span>
+        <span style="width:82%;"><i></i></span>
+        <span class="acc" style="width:60%;"></span>
+      </div>
+      <span class="mlabel">了解你是谁 · 偏好 · 边界</span>
+    </div>
+  </div>
+</section>
+</body>
+</html>
