@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P5 · 如何解决上述问题</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .deco-dot { position:absolute; border-radius:50%; }
+  .wrap { position:relative; height:100%; display:flex; flex-direction:column; padding:72px 120px 56px; }
+  .head .page-title { font-size:50px; }
+  .headsub { text-align:center; margin-top:12px; font-size:20px; color:#55677D; letter-spacing:.02em; }
+  .headsub b { color:#C25E0A; font-weight:700; }
+
+  .answers { display:flex; gap:48px; margin-top:36px; flex:none; }
+  .ans { flex:1; padding:30px 36px 28px; border-radius:22px; }
+  .ans-top { display:flex; align-items:center; gap:14px; }
+  .acheck { flex:none; width:40px; height:40px; border-radius:12px; background:#E9EEF5; display:flex; align-items:center; justify-content:center; }
+  .ans h3 { font-size:24px; font-weight:700; color:#1F3A5C; }
+  .ans h3 b { color:#C25E0A; }
+  .ans p { margin-top:14px; font-size:18.5px; line-height:1.8; color:#44576E; }
+  .ans p b { color:#1F3A5C; font-weight:700; }
+
+  /* Before → After 案例对照 */
+  .caseband { margin-top:34px; flex:1; min-height:0; padding:30px 44px 24px; border-radius:24px; display:flex; flex-direction:column; }
+  .case-head { flex:none; display:flex; align-items:center; gap:14px; }
+  .case-head .cap { font-size:15px; letter-spacing:.16em; color:#6E6557; font-weight:700; }
+  .case-head .cap b { color:#B4560A; }
+  .cases { flex:1; display:flex; flex-direction:column; justify-content:center; gap:22px; min-height:0; margin-top:10px; }
+  .case-row { display:flex; align-items:stretch; gap:0; }
+  .before { flex:1; background:#F6F2EA; border:1px solid #E4DDCE; border-radius:14px; padding:14px 20px; }
+  .before .bt { font-size:13.5px; letter-spacing:.1em; color:#8A7F6E; font-weight:700; }
+  .before p { margin-top:5px; font-size:16.5px; line-height:1.55; color:#55677D; }
+  .after { flex:1.15; background:#1F3A5C; border-radius:14px; padding:14px 20px; }
+  .after .bt { font-size:13.5px; letter-spacing:.1em; color:#F4C48E; font-weight:700; }
+  .after p { margin-top:5px; font-size:16.5px; line-height:1.55; color:#E8EDF4; }
+  .after p b { color:#F4C48E; font-weight:700; }
+  .arrowj { width:86px; display:flex; align-items:center; justify-content:center; flex:none; }
+  .caselabel { flex:none; width:150px; display:flex; align-items:center; flex:none; }
+  .caselabel span { font-size:15.5px; font-weight:700; color:#1F3A5C; background:#F4E7D8; border-radius:10px; padding:9px 0; text-align:center; width:100%; line-height:1.5; }
+
+  /* 母题 · 卡壳的散点 → 通畅的条目 */
+  .motif-strip { flex:none; margin-top:30px; display:flex; align-items:center; justify-content:center; gap:22px; }
+  .mgroup { display:flex; align-items:center; gap:14px; flex:none; }
+  .guessbar { width:190px; height:44px; border-radius:12px; background:#F6F2EA; border:1.5px dashed #C8BBA4; position:relative; overflow:hidden; flex:none; }
+  .guessbar i { position:absolute; border-radius:50%; }
+  .fitbar { width:210px; display:flex; flex-direction:column; gap:8px; flex:none; }
+  .fitbar span { height:15px; border-radius:7px; background:#E9EEF5; border:1px solid #D8E1EC; display:flex; align-items:center; padding:0 9px; }
+  .fitbar span.acc { background:#F4E7D8; border-color:#E8D5BC; }
+  .fitbar span i { width:6px; height:6px; border-radius:50%; background:#C25E0A; flex:none; }
+</style>
+</head>
+<body>
+<section id="p5" class="wrap">
+  <i class="deco-dot" style="width:150px;height:150px;background:#EDE6D6;top:-56px;right:-48px;"></i>
+  <i class="deco-dot" style="width:70px;height:70px;background:#E9EEF5;bottom:130px;left:-30px;"></i>
+
+  <div class="head">
+    <div class="overline">如何解决上述问题</div>
+    <h2 class="page-title">有了桌面记忆，两个问题都有了答案</h2>
+    <p class="headsub">Agent 回答成功率提升 · <b>模糊指令也可达成目标</b></p>
+  </div>
+
+  <div class="answers">
+    <div class="ans card">
+      <div class="ans-top">
+        <div class="acheck"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 11.5 L8.5 17 L19 5.5" stroke="#1F3A5C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>对应问题 1 · <b>Agent 回答成功率提升</b></h3>
+      </div>
+      <p>桌面里的所有 Agent 都了解当前用户是谁，知道他的<b>工作边界</b>和<b>写作偏好</b>，大幅提升 Agent 的成功率——不再「抽卡」。</p>
+    </div>
+    <div class="ans card">
+      <div class="ans-top">
+        <div class="acheck"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#1F3A5C" stroke-width="2.4"/><circle cx="11" cy="11" r="3" fill="#C25E0A"/></svg></div>
+        <h3>对应问题 2 · <b>模糊指令也可达成目标</b></h3>
+      </div>
+      <p>Agent 具备<b>和你一样的桌面记忆</b>，可以通过模糊指令达成任务。</p>
+    </div>
+  </div>
+
+  <div class="caseband card">
+    <div class="case-head"><span class="cap">回到 P2 的两个案例 · <b>改造前 vs 改造后</b></span></div>
+    <div class="cases">
+      <div class="case-row">
+        <div class="caselabel"><span>VDI 需求文档<br>指令</span></div>
+        <div class="before">
+          <div class="bt">改造前</div>
+          <p>内容比较空 · 名词理解偏差 · 格式不符 · 超出工作边界</p>
+        </div>
+        <div class="arrowj"><svg width="46" height="22" viewBox="0 0 46 22" fill="none"><path d="M0 11 H38 M30 3 L42 11 L30 19" stroke="#C25E0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="after">
+          <div class="bt">改造后</div>
+          <p>Agent 知道你的<b>岗位</b>与<b>文档格式偏好</b>，直接产出符合要求的需求文档</p>
+        </div>
+      </div>
+      <div class="case-row">
+        <div class="caselabel"><span>张三的 PPT<br>模糊指令</span></div>
+        <div class="before">
+          <div class="bt">改造前</div>
+          <p>「昨天的需求文档是什么格式？张三是在哪里发的这个 PPT？」</p>
+        </div>
+        <div class="arrowj"><svg width="46" height="22" viewBox="0 0 46 22" fill="none"><path d="M0 11 H38 M30 3 L42 11 L30 19" stroke="#C25E0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="after">
+          <div class="bt">改造后</div>
+          <p>从<b>桌面记忆</b>直接定位那份 PPT 与昨天的文档格式，模糊指令一次达成</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 母题：靠猜（虚线框里的散点）→ 一次达成（结构化条目） -->
+  <div class="motif-strip">
+    <div class="mgroup">
+      <div class="guessbar">
+        <i style="left:14px; top:26px; width:9px; height:9px; background:#E4DED0;"></i>
+        <i style="left:38px; top:12px; width:8px; height:8px; background:#1F3A5C; opacity:.35;"></i>
+        <i style="left:64px; top:24px; width:10px; height:10px; background:#C25E0A; opacity:.45;"></i>
+        <i style="left:92px; top:10px; width:8px; height:8px; background:#1F3A5C; opacity:.3;"></i>
+        <i style="left:118px;top:22px; width:9px; height:9px; background:#E4DED0;"></i>
+        <i style="left:148px;top:14px; width:8px; height:8px; background:#C25E0A; opacity:.5;"></i>
+        <i style="left:168px;top:12px; width:7px; height:7px; background:#1F3A5C; opacity:.3;"></i>
+      </div>
+      <span class="cap">只能靠猜</span>
+    </div>
+    <svg width="40" height="20" viewBox="0 0 40 20" fill="none"><path d="M0 10 H32 M25 3 L34 10 L25 17" stroke="#C25E0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="mgroup">
+      <div class="fitbar">
+        <span><i></i></span>
+        <span style="width:80%;"><i></i></span>
+        <span class="acc" style="width:118px;"></span>
+      </div>
+      <span class="cap">一次达成</span>
+    </div>
+  </div>
+</section>
+</body>
+</html>
