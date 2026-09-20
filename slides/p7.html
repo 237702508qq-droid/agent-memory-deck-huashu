@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P7 · 用户价值总结</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .deco-dot { position:absolute; border-radius:50%; }
+  .wrap { position:relative; height:100%; display:flex; flex-direction:column; padding:66px 120px 46px; }
+
+  .values { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:24px; margin-top:34px; flex:1; min-height:0; }
+  .val { padding:26px 34px 22px; border-radius:22px; display:flex; flex-direction:column; min-height:0; }
+  .val-top { display:flex; align-items:center; gap:16px; flex:none; }
+  .vnum { flex:none; font-family:'Noto Serif CJK SC', serif; font-weight:900; font-size:40px; color:#C25E0A; line-height:1; }
+  .val h3 { font-size:23px; font-weight:700; color:#1F3A5C; line-height:1.35; }
+  .val .rule { margin:14px 0 12px; flex:none; }
+  .val p { font-size:16.5px; line-height:1.7; color:#44576E; }
+  .val p b { color:#1F3A5C; font-weight:700; }
+
+  /* 价值 1 · 重点条 */
+  .val.hero { background:#1F3A5C; box-shadow:0 22px 56px rgba(31,58,92,.28); }
+  .val.hero .vnum { color:#F4C48E; }
+  .val.hero h3 { color:#FFFFFF; }
+  .val.hero .rule { background:rgba(255,255,255,.22); }
+  .val.hero p { color:#C9D5E4; }
+  .val.hero p b { color:#F4C48E; }
+  .herochip { margin-left:auto; flex:none; font-size:13.5px; font-weight:700; letter-spacing:.14em; color:#1F3A5C; background:#F4C48E; border-radius:999px; padding:6px 14px; }
+
+  .vicon { flex:none; width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:#F6F2EA; border:1px solid #E4DDCE; }
+  .val.hero .vicon { background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.25); }
+  .vrow { display:flex; align-items:center; gap:12px; }
+  .vrow i { flex:none; width:7px; height:7px; border-radius:50%; background:#C25E0A; }
+
+  /* 收尾 */
+  .closing { flex:none; margin-top:28px; display:flex; align-items:center; justify-content:center; gap:18px; }
+  .closing .line { flex:none; width:150px; height:1px; background:#D8CFC0; }
+  .closing p { flex:none; font-family:'Noto Serif CJK SC', serif; font-weight:900; font-size:29px; color:#1F3A5C; letter-spacing:.02em; }
+  .closing p .acc { color:#C25E0A; }
+
+  /* 母题 · 四条价值汇成一个「数字同事」 */
+  .motif-strip { flex:none; margin-top:22px; display:flex; align-items:center; justify-content:center; gap:20px; }
+  .fourdots { display:flex; gap:10px; flex:none; }
+  .fourdots i { width:12px; height:12px; border-radius:50%; }
+  .fourdots i:nth-child(1){ background:#C25E0A; }
+  .fourdots i:nth-child(2){ background:#1F3A5C; opacity:.55; }
+  .fourdots i:nth-child(3){ background:#E4DED0; border:1px solid #D8CFC0; }
+  .fourdots i:nth-child(4){ background:#1F3A5C; opacity:.3; }
+</style>
+</head>
+<body>
+<section id="p7" class="wrap">
+  <i class="deco-dot" style="width:150px;height:150px;background:#EDE6D6;top:-56px;right:-48px;"></i>
+  <i class="deco-dot" style="width:70px;height:70px;background:#E9EEF5;top:220px;left:-30px;"></i>
+
+  <div class="overline">用户价值总结</div>
+  <h2 class="page-title">桌面记忆带来的四重价值</h2>
+
+  <div class="values">
+    <div class="val hero">
+      <div class="val-top">
+        <span class="vnum">01</span>
+        <h3>数据属于企业</h3>
+        <span class="herochip">重点</span>
+      </div>
+      <div class="rule"></div>
+      <p>企业新上的 Agent、更换 Agent、多 Agent 并存，都可以<b>即刻获得个人上下文</b>（更换 Agent 个人上下文不丢）。</p>
+    </div>
+
+    <div class="val card">
+      <div class="val-top">
+        <span class="vnum">02</span>
+        <div class="vicon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 19 L9 8 L13 15 L16 10 L20 19" stroke="#1F3A5C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>提升 Agent 的成功率</h3>
+      </div>
+      <div class="rule"></div>
+      <p>Agent 更懂<b>用户是谁、用户偏好、工作边界</b>，输出的内容符合用户的个性化要求。</p>
+    </div>
+
+    <div class="val card">
+      <div class="val-top">
+        <span class="vnum">03</span>
+        <div class="vicon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="10" r="5.5" stroke="#1F3A5C" stroke-width="2.2"/><path d="M14.5 14.5 L19 19" stroke="#C25E0A" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+        <h3>模糊指令也可达成</h3>
+      </div>
+      <div class="rule"></div>
+      <p>拥有<b>桌面级记忆</b>，让 Agent 的上下文不局限于对话框，模糊指令也可达成。</p>
+    </div>
+
+    <div class="val card">
+      <div class="val-top">
+        <span class="vnum">04</span>
+        <div class="vicon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4" stroke="#1F3A5C" stroke-width="2.2"/><path d="M8 9.5 h8 M8 13 h5" stroke="#C25E0A" stroke-width="2.1" stroke-linecap="round"/></svg></div>
+        <h3>更多其他自定义功能</h3>
+      </div>
+      <div class="rule"></div>
+      <p>识别可 AI 提效的任务、生成日报/周报、生成待办事项。</p>
+    </div>
+  </div>
+
+  <div class="closing">
+    <div class="line"></div>
+    <p>让云桌面里的每一个 AI Agent，都成为<span class="acc">懂你的数字同事</span></p>
+    <div class="line"></div>
+  </div>
+
+  <!-- 母题：四条价值 → 汇成「懂你」 -->
+  <div class="motif-strip">
+    <div class="fourdots"><i></i><i></i><i></i><i></i></div>
+    <svg width="36" height="18" viewBox="0 0 36 18" fill="none"><path d="M0 9 H28 M22 3 L30 9 L22 15" stroke="#C25E0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div style="display:flex; flex-direction:column; gap:7px; flex:none;">
+      <span style="height:13px; border-radius:6px; background:#E9EEF5; border:1px solid #D8E1EC; width:130px; display:block;"></span>
+      <span style="height:13px; border-radius:6px; background:#F4E7D8; border:1px solid #E8D5BC; width:96px; display:block;"></span>
+    </div>
+    <span class="cap">四重价值，汇成一个「懂你」的 Agent</span>
+  </div>
+</section>
+</body>
+</html>
