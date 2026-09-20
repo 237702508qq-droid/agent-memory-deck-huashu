@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P6 · 更多自定义功能</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .deco-dot { position:absolute; border-radius:50%; }
+  .wrap { position:relative; height:100%; display:flex; flex-direction:column; padding:80px 140px 60px; }
+
+  /* 双通道 */
+  .channels { display:flex; gap:0; margin-top:52px; flex:none; align-items:stretch; }
+  .chan { flex:1; padding:36px 42px 32px; border-radius:24px; }
+  .chan-top { display:flex; align-items:center; gap:18px; }
+  .cicon { flex:none; width:72px; height:72px; border-radius:20px; display:flex; align-items:center; justify-content:center; }
+  .ic-blue { background:#E9EEF5; } .ic-warm { background:#F4E7D8; }
+  .chan h3 { font-size:27px; font-weight:700; color:#1F3A5C; }
+  .chan .sub { margin-top:4px; font-size:15px; letter-spacing:.1em; color:#8A7F6E; }
+  .chan p { margin-top:20px; font-size:19.5px; line-height:1.85; color:#44576E; }
+  .chan p b { color:#C25E0A; font-weight:700; }
+  .orbridge { width:120px; flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; }
+  .orline { width:2px; flex:1; background:linear-gradient(180deg, rgba(31,58,92,0) 0%, #D8CFC0 50%, rgba(31,58,92,0) 100%); }
+  .ordot { flex:none; width:52px; height:52px; border-radius:50%; background:#FFFFFF; border:1.5px solid #E4DDCE; box-shadow:0 8px 22px rgba(31,58,92,.08); display:flex; align-items:center; justify-content:center; font-family:'Noto Serif CJK SC', serif; font-weight:900; font-size:20px; color:#C25E0A; }
+
+  /* 举例卡片 */
+  .exhead { margin-top:44px; display:flex; align-items:center; gap:16px; flex:none; }
+  .exhead .line { flex:1; height:1px; background:#ECE6D9; }
+  .exhead .cap { flex:none; font-size:15px; letter-spacing:.18em; color:#6E6557; font-weight:700; }
+  .exhead .cap b { color:#B4560A; }
+  .examples { display:flex; gap:32px; margin-top:24px; flex:none; }
+  .ex { flex:1; padding:26px 30px 24px; border-radius:20px; background:#FFFFFF; border:1.5px solid #E4DDCE; box-shadow:0 12px 32px rgba(31,58,92,.06); }
+  .ex .exicon { width:52px; height:52px; border-radius:14px; background:#F6F2EA; border:1px solid #E4DDCE; display:flex; align-items:center; justify-content:center; }
+  .ex h4 { margin-top:16px; font-size:21px; font-weight:700; color:#1F3A5C; }
+  .ex p { margin-top:8px; font-size:16.5px; line-height:1.65; color:#55677D; }
+  .ex-and { align-self:center; flex:none; font-family:'Noto Serif CJK SC', serif; font-weight:900; font-size:22px; color:#C25E0A; }
+
+  /* 母题 · 想法点 → 汇入自动运转的条目 */
+  .motif-strip { flex:none; margin-top:auto; display:flex; align-items:center; justify-content:center; gap:22px; padding-top:34px; }
+  .mgroup { display:flex; align-items:center; gap:14px; flex:none; }
+  .ideabox { width:190px; height:44px; border-radius:12px; background:#F4E7D8; border:1px solid #E8D5BC; position:relative; flex:none; }
+  .ideabox i { position:absolute; border-radius:50%; background:#C25E0A; }
+  .autoswitch { display:flex; align-items:center; gap:10px; flex:none; }
+  .autoswitch .bars { display:flex; flex-direction:column; gap:8px; }
+  .autoswitch .bars span { display:block; height:15px; border-radius:7px; background:#E9EEF5; border:1px solid #D8E1EC; }
+  .autoswitch .gear { flex:none; }
+</style>
+</head>
+<body>
+<section id="p6" class="wrap">
+  <i class="deco-dot" style="width:150px;height:150px;background:#EDE6D6;top:-56px;left:-48px;"></i>
+  <i class="deco-dot" style="width:80px;height:80px;background:#E9EEF5;bottom:150px;right:-34px;"></i>
+
+  <div class="overline">更多自定义功能</div>
+  <h2 class="page-title">记忆之上，还能<span class="acc">长出</span>什么</h2>
+
+  <div class="channels">
+    <div class="chan card">
+      <div class="chan-top">
+        <div class="cicon ic-warm">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M19 5 L22.5 12.5 L30 14 L24.5 19.5 L26 27 L19 23.5 L12 27 L13.5 19.5 L8 14 L15.5 12.5 Z" stroke="#1F3A5C" stroke-width="2.4" stroke-linejoin="round"/><path d="M19 27 v6 M14 33 h10" stroke="#C25E0A" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <h3>二次开发</h3>
+          <div class="sub">用户侧</div>
+        </div>
+      </div>
+      <p>支持用户对桌面记忆<b>二次开发</b>——使用<b>自然语言</b>即可，不需要写代码。</p>
+    </div>
+
+    <div class="orbridge">
+      <div class="orline"></div>
+      <div class="ordot">或</div>
+      <div class="orline"></div>
+    </div>
+
+    <div class="chan card">
+      <div class="chan-top">
+        <div class="cicon ic-blue">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M19 6 v8 M19 24 v8 M6 19 h8 M24 19 h8" stroke="#1F3A5C" stroke-width="2.4" stroke-linecap="round"/><circle cx="19" cy="19" r="5" stroke="#C25E0A" stroke-width="2.4"/></svg>
+        </div>
+        <div>
+          <h3>管理员下发</h3>
+          <div class="sub">管理侧</div>
+        </div>
+      </div>
+      <p>也可由<b>管理员下发</b>应用方式。</p>
+    </div>
+  </div>
+
+  <div class="exhead">
+    <div class="line"></div>
+    <span class="cap">举几个 <b>例子</b></span>
+    <div class="line"></div>
+  </div>
+
+  <div class="examples">
+    <div class="ex">
+      <div class="exicon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="#1F3A5C" stroke-width="2.3"/><circle cx="14" cy="14" r="4.5" stroke="#C25E0A" stroke-width="2.3"/><circle cx="14" cy="14" r="1.6" fill="#C25E0A"/></svg></div>
+      <h4>识别可 AI 提效的点</h4>
+      <p>找出工作中可以通过 AI 提效的点</p>
+    </div>
+    <div class="ex-and">·</div>
+    <div class="ex">
+      <div class="exicon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="4" width="20" height="20" rx="4" stroke="#1F3A5C" stroke-width="2.3"/><path d="M9 11 h10 M9 16 h10 M9 21 h6" stroke="#C25E0A" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+      <h4>生成日报、周报</h4>
+      <p>从桌面记忆里汇总一天的、一周的工作</p>
+    </div>
+    <div class="ex-and">·</div>
+    <div class="ex">
+      <div class="exicon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="5" y="5" width="18" height="18" rx="4" stroke="#1F3A5C" stroke-width="2.3"/><path d="M9.5 14.5 L13 18 L19 10.5" stroke="#C25E0A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h4>生成待办事项</h4>
+      <p>把桌面上的线索整理成待办清单</p>
+    </div>
+  </div>
+
+  <!-- 母题：零散想法 → 自动进入结构化流程 -->
+  <div class="motif-strip">
+    <div class="mgroup">
+      <div class="ideabox">
+        <i style="left:16px; top:16px; width:9px; height:9px; opacity:.75;"></i>
+        <i style="left:44px; top:26px; width:7px; height:7px; opacity:.45;"></i>
+        <i style="left:70px; top:12px; width:8px; height:8px; opacity:.6;"></i>
+        <i style="left:96px; top:22px; width:9px; height:9px; opacity:.4;"></i>
+        <i style="left:124px;top:14px; width:7px; height:7px; opacity:.55;"></i>
+        <i style="left:150px;top:24px; width:8px; height:8px; opacity:.45;"></i>
+      </div>
+      <span class="cap">工作里的零散想法</span>
+    </div>
+    <svg width="40" height="20" viewBox="0 0 40 20" fill="none"><path d="M0 10 H32 M25 3 L34 10 L25 17" stroke="#C25E0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="autoswitch">
+      <div class="gear">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="9" stroke="#1F3A5C" stroke-width="2.4"/><circle cx="17" cy="17" r="3" fill="#C25E0A"/><path d="M17 3 v4 M17 27 v4 M3 17 h4 M27 17 h4 M7.2 7.2 l2.8 2.8 M24 24 l2.8 2.8 M26.8 7.2 L24 10 M10 24 l-2.8 2.8" stroke="#1F3A5C" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="bars">
+        <span style="width:150px;"></span>
+        <span style="width:116px;"></span>
+        <span style="width:168px; background:#F4E7D8; border-color:#E8D5BC;"></span>
+      </div>
+      <span class="cap">自动整理成条目</span>
+    </div>
+  </div>
+</section>
+</body>
+</html>
